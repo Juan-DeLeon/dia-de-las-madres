@@ -23,6 +23,7 @@ function setupInterceptor() {
             'Authorization': tokenBearer,
             'Content-Type': 'application/json'
         }
+        console.log(config.headers);
         return config;
     });
 }
@@ -83,11 +84,12 @@ export async function sendMessage(tel: string) {
 
         return res;
     } catch (err: any) {
+        console.error(err);
         if (err.response) {
             return err.response;
         }
         else {
-            throw err;
+            return err;
         }
     }
 }

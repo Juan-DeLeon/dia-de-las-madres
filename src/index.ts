@@ -22,11 +22,11 @@ class Program {
 
     static async main() {
         try {
-
             Logger.start();
 
             await auth();
-            const list = await getTelephoneNumbers();
+            // const list = await getTelephoneNumbers();
+            const list = ["522221524595", "528712770978", "528116833868"]
 
             Logger.stats.totalEnviados = list.length;
 
@@ -46,7 +46,7 @@ class Program {
             await this.sendBatch();
 
             Logger.end();
-            closeDB();
+            // closeDB();
         }
         catch (err) {
             console.error("se produjo un error en el envio", err);
@@ -60,7 +60,7 @@ class Program {
             el.status == 200 ? Logger.stats.exitosos++ : Logger.stats.errores++;
 
             // update status code
-            this.logs[i].statusCode = el.status;
+            this.logs[i].statusCode = el.status || 500;
         });
         Logger.write(this.logs); // write log
         // empty arrays
