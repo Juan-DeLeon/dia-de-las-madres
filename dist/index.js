@@ -20,7 +20,7 @@ class Program {
             logger_1.Logger.start();
             await (0, aivo_1.auth)();
             // const list = await getTelephoneNumbers();
-            const list = [].concat(...new Array(10).fill([
+            const list = [].concat(...new Array(5).fill([
                 "528712770978",
                 "522221524595",
                 "528116833868",
@@ -31,7 +31,18 @@ class Program {
                 "522221583338",
                 "522221177022",
                 "522227445979",
-                "522225665395"
+                "522225665395",
+                "522221240619",
+                "522225992129",
+                "527341088905",
+                "525518774703",
+                "527775319735",
+                "527343497210",
+                "527775605468",
+                "525538989360",
+                "525545001639",
+                "525515906560",
+                "525584117057",
             ]));
             logger_1.Logger.stats.totalEnviados = list.length;
             for (const tel of list) {
