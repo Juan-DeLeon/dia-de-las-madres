@@ -30,7 +30,6 @@ function setupInterceptor() {
             'Authorization': tokenBearer,
             'Content-Type': 'application/json'
         };
-        console.log(config.headers);
         return config;
     });
 }

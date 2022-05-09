@@ -12,8 +12,6 @@ import { ILog, Logger } from './logger';
 
 const send = global.production ? sendMessage : fakeSendMessage;
 
-
-
 class Program {
     static limiter = new RateLimiter({ tokensPerInterval: CONCURRENCY_LIMIT, interval: "second" });
 
@@ -26,7 +24,19 @@ class Program {
 
             await auth();
             // const list = await getTelephoneNumbers();
-            const list = ["522221524595", "528712770978", "528116833868"]
+            const list = [].concat(... new Array(10).fill([
+                "528712770978",
+                "522221524595",
+                "528116833868",
+                "522223570633",
+                "522226857559",
+                "522225549990",
+                "522221920338",
+                "522221583338",
+                "522221177022",
+                "522227445979",
+                "522225665395"
+            ]));
 
             Logger.stats.totalEnviados = list.length;
 
