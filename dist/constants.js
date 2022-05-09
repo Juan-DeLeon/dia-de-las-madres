@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.DEV_LIMIT = exports.LOG_STATS = exports.LOG_ENVIADOS = exports.TOKEN_CACHE = exports.AIVO_TEMPLATE = exports.AXIOS_TIMEOUT = exports.CONCURRENCY_LIMIT = void 0;
+exports.CONCURRENCY_LIMIT = 20;
+exports.AXIOS_TIMEOUT = 15000;
+exports.AIVO_TEMPLATE = "dia_de_la_madre";
+exports.TOKEN_CACHE = './token';
+exports.LOG_ENVIADOS = "./logs/enviados.csv";
+exports.LOG_STATS = "./logs/stats.log";
+exports.DEV_LIMIT = 100;
