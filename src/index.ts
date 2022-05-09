@@ -7,7 +7,7 @@ global.production = process.env.NODE_ENV == "production";
 import { RateLimiter } from 'limiter';
 import { auth, fakeSendMessage, sendMessage } from './aivo';
 import { CONCURRENCY_LIMIT } from './constants';
-import { closeDB, getTelephoneNumbers } from './db';
+import { closeDB, getTelephoneNumbers, getTestNumbers } from './db';
 import { ILog, Logger } from './logger';
 
 const send = global.production ? sendMessage : fakeSendMessage;
@@ -23,34 +23,8 @@ class Program {
             Logger.start();
 
             await auth();
-            // const list = await getTelephoneNumbers();
-            const list = [].concat(...new Array(3).fill([
-                "528712770978",
-                "522221524595",
-                "528116833868",
-                "522223570633",
-                "522226857559",
-                "522225549990",
-                "522221920338",
-                "522221583338",
-                "522221177022",
-                "522227445979",
-                "522225665395",
-                "522221240619",
-                "522225992129",
-                "527341088905",
-                "525518774703",
-                "527775319735",
-                "527343497210",
-                "527775605468",
-                "525538989360",
-                "525545001639",
-                "525515906560",
-                "525584117057",
-                "523222880384",
-                "528112370258",
-                "525511509953",
-            ]));
+            const list = await getTelephoneNumbers();
+            // const list = getTestNumbers();
 
             Logger.stats.totalEnviados = list.length;
 
@@ -70,7 +44,7 @@ class Program {
             await this.sendBatch();
 
             Logger.end();
-            // closeDB();
+            closeDB();
         }
         catch (err) {
             console.error("se produjo un error en el envio", err);

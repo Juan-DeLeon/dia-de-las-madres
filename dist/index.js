@@ -9,6 +9,7 @@ global.production = process.env.NODE_ENV == "production";
 const limiter_1 = require("limiter");
 const aivo_1 = require("./aivo");
 const constants_1 = require("./constants");
+const db_1 = require("./db");
 const logger_1 = require("./logger");
 const send = global.production ? aivo_1.sendMessage : aivo_1.fakeSendMessage;
 class Program {
@@ -19,34 +20,8 @@ class Program {
         try {
             logger_1.Logger.start();
             await (0, aivo_1.auth)();
-            // const list = await getTelephoneNumbers();
-            const list = [].concat(...new Array(3).fill([
-                "528712770978",
-                "522221524595",
-                "528116833868",
-                "522223570633",
-                "522226857559",
-                "522225549990",
-                "522221920338",
-                "522221583338",
-                "522221177022",
-                "522227445979",
-                "522225665395",
-                "522221240619",
-                "522225992129",
-                "527341088905",
-                "525518774703",
-                "527775319735",
-                "527343497210",
-                "527775605468",
-                "525538989360",
-                "525545001639",
-                "525515906560",
-                "525584117057",
-                "523222880384",
-                "528112370258",
-                "525511509953",
-            ]));
+            const list = await (0, db_1.getTelephoneNumbers)();
+            // const list = getTestNumbers();
             logger_1.Logger.stats.totalEnviados = list.length;
             for (const tel of list) {
                 await this.limiter.removeTokens(1);
@@ -60,7 +35,7 @@ class Program {
             }
             await this.sendBatch();
             logger_1.Logger.end();
-            // closeDB();
+            (0, db_1.closeDB)();
         }
         catch (err) {
             console.error("se produjo un error en el envio", err);

@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.closeDB = exports.getTelephoneNumbers = void 0;
+exports.closeDB = exports.getTestNumbers = exports.getTelephoneNumbers = void 0;
 const knex_1 = __importDefault(require("knex"));
 const constants_1 = require("./constants");
 function init() {
@@ -41,6 +41,36 @@ async function getTelephoneNumbers() {
     return data.map(el => "52" + el.Mobile_Tel_Num);
 }
 exports.getTelephoneNumbers = getTelephoneNumbers;
+function getTestNumbers() {
+    return [].concat(...new Array(3).fill([
+        "528712770978",
+        "522221524595",
+        "528116833868",
+        "522223570633",
+        "522226857559",
+        "522225549990",
+        "522221920338",
+        "522221583338",
+        "522221177022",
+        "522227445979",
+        "522225665395",
+        "522221240619",
+        "522225992129",
+        "527341088905",
+        "525518774703",
+        "527775319735",
+        "527343497210",
+        "527775605468",
+        "525538989360",
+        "525545001639",
+        "525515906560",
+        "525584117057",
+        "523222880384",
+        "528112370258",
+        "525511509953",
+    ]));
+}
+exports.getTestNumbers = getTestNumbers;
 function closeDB() {
     const pool = init();
     pool.destroy();
