@@ -25,21 +25,21 @@ function init(): Knex {
 // count: 8904
 export async function getTelephoneNumbers(): Promise<string[]> {
     const pool = init();
-    const query = pool.table('NFS_DBO.Representative_Table')
-        .select(['Mobile_Tel_Num'])
-        .where({
-            Gender_Code: 'FE',
-            Representative_Status_Code: 'AC'
-        })
-        .whereNotNull('Agency_Id');
+    // original failure
+    // const query = pool.table('NFS_DBO.Representative_Table')
+    //     .select(['Mobile_Tel_Num'])
+    //     .where({
+    //         Gender_Code: 'FE',
+    //         Representative_Status_Code: 'AC'
+    //     })
+    //     .whereNotNull('Agency_Id');
+    const data = await pool.raw(`SELECT RIGHT(Mobile_Tel_Num,10) AS Mobile_Tel_Num
+    FROM NFS_DBO.Representative_Table
+    where Gender_Code = 'FE' AND Representative_Status_Code = 'AC'
+    AND Not Agency_Id IS NULL
+    AND ISNUMERIC(Mobile_Tel_Num) = 1`);
 
-    if (!global.production) {
-        query.limit(DEV_LIMIT);
-    }
-
-    const data = await query;
-
-    return data.map(el => "52" + el.Mobile_Tel_Num);
+    return data.map((el: any) => "52" + el.Mobile_Tel_Num);
 }
 
 export function getTestNumbers() {

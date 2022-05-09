@@ -5,7 +5,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.closeDB = exports.getTestNumbers = exports.getTelephoneNumbers = void 0;
 const knex_1 = __importDefault(require("knex"));
-const constants_1 = require("./constants");
 function init() {
     const dbConfig = {
         client: 'mssql',
@@ -27,18 +26,20 @@ function init() {
 // count: 8904
 async function getTelephoneNumbers() {
     const pool = init();
-    const query = pool.table('NFS_DBO.Representative_Table')
-        .select(['Mobile_Tel_Num'])
-        .where({
-        Gender_Code: 'FE',
-        Representative_Status_Code: 'AC'
-    })
-        .whereNotNull('Agency_Id');
-    if (!global.production) {
-        query.limit(constants_1.DEV_LIMIT);
-    }
-    const data = await query;
-    return data.map(el => "52" + el.Mobile_Tel_Num);
+    // original failure
+    // const query = pool.table('NFS_DBO.Representative_Table')
+    //     .select(['Mobile_Tel_Num'])
+    //     .where({
+    //         Gender_Code: 'FE',
+    //         Representative_Status_Code: 'AC'
+    //     })
+    //     .whereNotNull('Agency_Id');
+    const data = await pool.raw(`SELECT RIGHT(Mobile_Tel_Num,10) AS Mobile_Tel_Num
+    FROM NFS_DBO.Representative_Table
+    where Gender_Code = 'FE' AND Representative_Status_Code = 'AC'
+    AND Not Agency_Id IS NULL
+    AND ISNUMERIC(Mobile_Tel_Num) = 1`);
+    return data.map((el) => "52" + el.Mobile_Tel_Num);
 }
 exports.getTelephoneNumbers = getTelephoneNumbers;
 function getTestNumbers() {
