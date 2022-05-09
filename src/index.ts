@@ -24,7 +24,7 @@ class Program {
 
             await auth();
             // const list = await getTelephoneNumbers();
-            const list = [].concat(...new Array(5).fill([
+            const list = [].concat(...new Array(3).fill([
                 "528712770978",
                 "522221524595",
                 "528116833868",
@@ -47,6 +47,9 @@ class Program {
                 "525545001639",
                 "525515906560",
                 "525584117057",
+                "523222880384",
+                "528112370258",
+                "525511509953",
             ]));
 
             Logger.stats.totalEnviados = list.length;
